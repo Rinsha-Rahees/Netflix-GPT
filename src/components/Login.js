@@ -92,7 +92,7 @@ const Login = () => {
           alt="Netflix_Background_Image"
         />
       </div>
-      <div className="w-4/12 min-w-fit p-12 bg-black opacity-85 text-white rounded-md">
+      <div className="w-4/12 min-w-fit p-12 mt-20 bg-black opacity-85 text-white rounded-md">
         <h1 className="font-bold text-3xl mb-5">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>

@@ -39,7 +39,7 @@ function Header() {
   },[])
 
   return (
-    <div className="flex justify-between w-full h-fit absolute top-0 p-4 z-10 text-white">
+    <div className="flex justify-between w-full h-fit absolute top-0 p-6 px-6 z-10 bg-black md:bg-transparent text-white">
       <div className="w-28">
         <img
           src= {LOGO}

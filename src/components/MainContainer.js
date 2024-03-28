@@ -5,8 +5,7 @@ import VideoBackground from "./VideoBackground"
 
 const MainContainer = () => {
 
-    const movies = useSelector(store => store.movies?.nowPlayingMovie)
-
+    const movies = useSelector(store => store.movies?.nowPlayingMovies)
     if(!movies) return ;  // Early return !movies (movies are not present, means null) is same as movies === null 
 
     const mainMovie = movies[0]
@@ -14,8 +13,10 @@ const MainContainer = () => {
     const {original_title, overview, id} = mainMovie
 
   return (
-    <div className='w-full h-full -mt-24'>
+    <div className='w-full h-fit -mt-24'>
+      <div className='hidden xl:flex'>
         <VideoTitle title={original_title} overview={overview}/>
+      </div>
         <VideoBackground movieId={id}/>
     </div>
   )
