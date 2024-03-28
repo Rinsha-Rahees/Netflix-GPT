@@ -7,14 +7,13 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/Firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice"
+import { addUser } from "../utils/userSlice";
+import { LOGIN_BG, USER_AVATAR } from "../utils/Constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const name = useRef(null);
@@ -42,19 +41,18 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://e7.pngegg.com/pngimages/168/827/png-clipart-computer-icons-user-profile-avatar-profile-woman-desktop-wallpaper-thumbnail.png",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser; // Got from user object
               dispatch(
-                addUser({ 
-                  uid, 
-                  email, 
-                  displayName, 
-                  photoURL 
-                })); // Once user signed in -> Navigate to browse page
-              navigate("/browse");
+                addUser({
+                  uid,
+                  email,
+                  displayName,
+                  photoURL,
+                })
+              );
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -75,7 +73,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -86,22 +83,22 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-full h-full justify-center">
+    <div className="flex flex-col items-center w-full h-full">
       <Header />
       <div className="absolute top-0 w-full h-full bg-gradient-to-b from-black">
         <img
           className="relative w-full h-full -z-10 "
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/a3873901-5b7c-46eb-b9fa-12fea5197bd3/IN-en-20240311-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+          src={LOGIN_BG}
           alt="Netflix_Background_Image"
         />
       </div>
-      <div className="w-4/12 min-w-fit absolute top-24 p-12 bg-black opacity-85 text-white rounded-md">
+      <div className="w-4/12 min-w-fit p-12 bg-black opacity-85 text-white rounded-md">
         <h1 className="font-bold text-3xl mb-5">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         <form
-          onSubmit={(e) => e.preventDefault()}
-          className="flex flex-col w-full">
+          className="flex flex-col w-full"
+          onSubmit={(e) => e.preventDefault()}>
           {!isSignInForm && (
             <input
               ref={name}
@@ -124,12 +121,12 @@ const Login = () => {
           />
           <p className="text-red-600 font-bold">{errorMessage}</p>
           <button
-            className="p-3 my-4 rounded-md bg-red-700 font-semibold w-full"
+            className="p-3 my-4 rounded-md bg-red-600 font-semibold w-full"
             onClick={handleButtonClick}>
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
         </form>
-        <p className="my-4" onClick={toggleSignInForm}>
+        <p className="mt-3" onClick={toggleSignInForm}>
           {isSignInForm ? (
             <>
               New to Netflix?{" "}
