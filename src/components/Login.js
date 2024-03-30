@@ -9,7 +9,7 @@ import {
 import { auth } from "../utils/Firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { LOGIN_BG, USER_AVATAR } from "../utils/Constants";
+import { BG_POSTER, USER_AVATAR } from "../utils/Constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -88,7 +88,7 @@ const Login = () => {
       <div className="absolute top-0 w-full h-full bg-gradient-to-b from-black">
         <img
           className="relative w-full h-full -z-10 "
-          src={LOGIN_BG}
+          src={BG_POSTER}
           alt="Netflix_Background_Image"
         />
       </div>

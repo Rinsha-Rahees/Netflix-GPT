@@ -6,23 +6,32 @@ import SecondaryContainer from "./SecondaryContainer";
 import useTrendingMovies from "../customhooks/useTrendingMovies";
 import usePopularMovies from "../customhooks/usePopularMovies";
 import useUpcomingMovies from "../customhooks/useUpcomingMovies";
-import useMovieTrailer from "../customhooks/useMovieTrailer";
+import GptSearchPage from "./GptSearchPage";
+import { useSelector } from "react-redux";
 
 const Browse = () => {
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
   useNowPlayingMovies();
-  useTrendingMovies()
-  usePopularMovies()
-  useUpcomingMovies()
+  useTrendingMovies();
+  usePopularMovies();
+  useUpcomingMovies();
 
   return (
-    <div className="w-full h-full text-white">
-        <Header />
-      <div className="hidden md:flex">
-        <MainContainer />
-      </div>
-      <div className="bg-black">
-        <SecondaryContainer />
-      </div>
+    <div className="w-full h-full">
+      <Header />
+      {showGptSearch ? (
+        <GptSearchPage />
+      ) : (
+        <>
+          <div className="hidden md:flex text-white">
+            <MainContainer />
+          </div>
+          <div className="bg-black text-white">
+            <SecondaryContainer />
+          </div>
+        </>
+      )}
     </div>
   );
 };
