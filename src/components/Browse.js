@@ -27,7 +27,7 @@ const Browse = () => {
           <div className="hidden md:flex text-white">
             <MainContainer />
           </div>
-          <div className="bg-black text-white">
+          <div className="bg-black text-white pb-10">
             <SecondaryContainer />
           </div>
         </>

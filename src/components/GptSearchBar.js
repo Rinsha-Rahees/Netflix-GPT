@@ -25,7 +25,6 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
-    console.log(searchText.current.value);
 
     const gptQuery =
       "Act as a Movie Recommendation System and suggest some movies for the query" +
@@ -39,17 +38,14 @@ const GptSearchBar = () => {
 
     if (!gptResults.choices) {
       //TODO: Error handling
-      console.error("No chat gpt results!");
     }
 
-    console.log(gptResults.choices?.[0].message?.content);
     const gptMovies = gptResults.choices?.[0].message?.content.split(",");
 
     const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie)) // [Promise, Promise, Promise, Promise, Promise,]
 
     const tmdbResults = await Promise.all(promiseArray) // Tales time to return -> Show loading on the screen
 
-    console.log(tmdbResults);
 
     dispatch(addGptMovieResult({movieNames: gptMovies, movieResults: tmdbResults}))
 
@@ -57,10 +53,10 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="flex justify-center w-full z-10">
+    <div className="flex justify-center w-full z-10 mt-[30%] md:mt-24">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="flex w-2/3 h-fit p-2 bg-black rounded-md">
+        className="flex w-full md:w-2/3 h-fit p-2 bg-black rounded-md">
         <input
           ref={searchText}
           className="py-2 px-4 w-full rounded-l-md"
@@ -68,7 +64,7 @@ const GptSearchBar = () => {
           placeholder={lang[langKey].gptSearchPlaceholder}
         />
         <button
-          className="py-2 px-4 w-1/6 bg-purple-600 text-white rounded-r-md"
+          className="px-4 w-1/3 md:w-1/6 bg-purple-600 text-white rounded-r-md"
           onClick={handleGptSearchClick}>
           {lang[langKey].search}
         </button>

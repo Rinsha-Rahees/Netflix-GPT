@@ -8,7 +8,7 @@ const GptMovieSuggestions = () => {
   if (!movieNames) return; // Error Page/Shimmer UI
 
   return (
-    <div className="bg-black bg-opacity-90 text-white z-10 mt-16">
+    <div className="bg-black bg-opacity-90 text-white z-10 mt-16 pb-10">
       {movieNames.map((movieName, index) => (
         <MovieList key={movieName} title={movieName} movies={movieResults[index]} />
       ))}

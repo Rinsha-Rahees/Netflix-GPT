@@ -1,30 +1,18 @@
-import React, { useEffect } from "react";
-import { signOut } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/Firebase";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO, SUPPORTED_LANGUAGES } from "../utils/Constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
-import lang from "../utils/LanguageConstants";
+import { LOGO } from "../utils/Constants";
+import MenuItems from "./MenuItems";
 
 function Header() {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  const showGptSearch = useSelector((store) => store.gpt?.showGptSearch);
   const dispatch = useDispatch();
-  const langKey = useSelector((store) => store.config?.lang);
-
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {
-        // navigate("/error")
-      });
-  };
+  const [menuClicked, setMenuClicked] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -44,42 +32,32 @@ function Header() {
     return () => unsubscribe();
   }, []);
 
-  const handleGptSearchClick = () => {
-    dispatch(toggleGptSearchView());
-  };
+  const handleClick = () => {
+    setMenuClicked(!menuClicked)
+  }
 
-  const handleLanguageChange = (e) => {
-    dispatch(changeLanguage(e.target.value));
-  };
   return (
-    <div className="flex fixed justify-between w-full h-fit top-0 p-6 px-6 z-10 bg-black md:bg-transparent md:bg-gradient-to-b from-black text-white">
+    <div className="flex fixed justify-between w-full h-fit top-0 p-6 px-6 z-30 bg-black md:bg-transparent md:bg-gradient-to-b from-black text-white">
       <div className="w-28">
         <img src={LOGO} alt="Netflix Logo" />
       </div>
       {user && (
-        <div className="flex items-center">
-          <select
-            className="bg-gray-500 px-2 py-0.5 rounded-sm"
-            onChange={handleLanguageChange}>
-            {SUPPORTED_LANGUAGES.map((lang) => (
-              <option key={lang?.identifier} value={lang?.identifier}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={handleGptSearchClick}
-            className="px-3 py-0.5 mx-2 bg-purple-600 text-white rounded-sm font-semibold">
-            {showGptSearch ? lang[langKey].home : lang[langKey].askGpt }
-          </button>
-          <img
-            className="mr-2 w-7"
-            src={user?.photoURL}
-            alt="Profile Photo Avatar"
-          />
-          <button onClick={handleSignOut} className="font-bold">{`( ${lang[langKey].signOut} )`}
-          </button>
+        <>
+        <div className="hidden md:flex">
+          <MenuItems />
         </div>
+          <img 
+          onClick={handleClick}
+          className="flex md:hidden w-7 h-7 cursor-pointer" 
+          src="/menu.png"/>
+          {menuClicked && <div className="flex md:hidden border border-white rounded-md bg-black w-[80%] h-fit absolute right-5 top-5">
+            <img  
+            onClick={handleClick}
+            className="cursor-pointer w-6 absolute right-3 top-3" 
+            src="/close.png" />
+            <MenuItems />
+          </div>}
+        </>
       )}
     </div>
   );

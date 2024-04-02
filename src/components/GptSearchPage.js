@@ -5,16 +5,20 @@ import { BG_POSTER } from "../utils/Constants";
 
 const GptSearchPage = () => {
   return (
-    <div className="flex flex-col justify-between w-full h-screen mt-[9%]">
-      <img
-        className="fixed blur-md top-0 w-full -z-10"
-        src={BG_POSTER}
-        alt="Netflix_Background_Image"
-      />
+    <>
+      <div className="absolute w-full h-screen top-0 -z-10">
+        <img
+          className="fixed h-screen w-full object-cover"
+          src={BG_POSTER}
+          alt="Netflix_Background_Image"
+        />
+      </div>
 
-      <GptSearchBar />
-      <GptMovieSuggestions />
-    </div>
+      <div className="mt-[9%]">
+        <GptSearchBar />
+        <GptMovieSuggestions />
+      </div>
+    </>
   );
 };
 
