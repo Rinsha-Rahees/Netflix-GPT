@@ -39,7 +39,9 @@ function Header() {
   return (
     <div className="flex fixed justify-between w-full h-fit top-0 p-6 px-6 z-30 bg-black md:bg-transparent md:bg-gradient-to-b from-black text-white">
       <div className="w-28">
-        <img src={LOGO} alt="Netflix Logo" />
+        <img 
+        className="w-full"
+        src={LOGO} alt="Netflix Logo" />
       </div>
       {user && (
         <>
