@@ -31,7 +31,7 @@ function MenuItems() {
   return (
     <div className="flex flex-col items-start md:flex-row md:items-center pl-4 my-3 md:my-0">
     <select
-      className="bg-gray-500 px-2 py-0.5 rounded-sm"
+      className="bg-gray-500 px-2 py-0.5 rounded-sm cursor-pointer"
       onChange={handleLanguageChange}>
       {SUPPORTED_LANGUAGES.map((lang) => (
         <option key={lang?.identifier} value={lang?.identifier}>

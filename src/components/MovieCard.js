@@ -5,7 +5,7 @@ const MovieCard = ({ title, posterPath }) => {
   if (!posterPath) return; // Can show something later - enhancement
 
   return (
-    <div className="w-32 pr-2">
+    <div className="w-32 pr-2 cursor-pointer">
       <img
         className="h-full"
         src={TMDB_IMAGE_CDN_URL + posterPath}
