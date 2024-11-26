@@ -6,12 +6,21 @@ export const USER_AVATAR =
   "https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp";
 export const LOGOUT = "/logout.png"
 
+export const API_MOVIES_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    "x-rapidapi-host": "imdb-top-100-movies.p.rapidapi.com",
+    "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY, // Replace this with your RapidAPI key in the .env file
+  },
+};
+
 export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer " + process.env.REACT_APP_TMDB_KEY,
+    "x-rapidapi-host": "imdb-com.p.rapidapi.com",
+    "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY, // Replace this with your RapidAPI key in the .env file
   },
 };
 

@@ -8,7 +8,7 @@ const MovieCard = ({ title, posterPath }) => {
     <div className="w-32 pr-2 cursor-pointer">
       <img
         className="h-full"
-        src={TMDB_IMAGE_CDN_URL + posterPath}
+        src={posterPath}
         alt={title}
       />
     </div>

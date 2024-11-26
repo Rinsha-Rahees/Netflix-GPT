@@ -1,10 +1,10 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 
-const MovieList = ({ title, movies }) => {
+const GPTMovieList = ({ title, movies }) => {
   return (
     <div className="px-12">
-      <h1 className="text-xl md:text-3xl py-4 pt-8">{title}</h1>
+      <h1 className="text-base font-semibold py-4 pt-8">{title}</h1>
       <div
         className="flex overflow-x-scroll"
         style={{
@@ -14,14 +14,12 @@ const MovieList = ({ title, movies }) => {
             display: "none", // Hide the default scrollbar for Webkit browsers
           },
         }}>
-        <div className="flex">
-          {movies?.map((movie) => (
-            <MovieCard key={movie?.imdbid} title={movie?.title} posterPath={movie?.image} />
-          ))}
+        <div className="grid ">
+            <MovieCard key={movies?.id} title={movies?.originalTitleText.text} posterPath={movies?.primaryImage?.url} />
         </div>
       </div>
     </div>
   );
 };
 
-export default MovieList;
+export default GPTMovieList;
